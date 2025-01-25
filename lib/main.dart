@@ -1,11 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tink_her/screens/HomeScreen.dart';
 import 'package:tink_her/screens/LoginScreen.dart';
 import 'package:tink_her/screens/SignupScreen.dart';
 import 'package:tink_her/screens/ProfileScreen.dart'; // Import the ProfileScreen
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(); // Initialize Firebase
   runApp(const MyApp());
 }
 
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/signup': (context) => SignupScreen(),
-        '/profile': (context) => ProfileScreen(), // Add route for ProfileScreen
+        '/profile': (context) => ProfileScreen(),
       },
     );
   }

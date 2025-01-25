@@ -6,11 +6,11 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-<<<<<<< HEAD
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
+  int _selectedIndex = 0;
 
-  @override
+  // List of pages for each tab
+  final List<Widget> _pages = [
+    Center(
       child: Text(
         'Meal Community',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -34,11 +34,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _selectedIndex = index;
     });
->>>>>>> 6acf33373a9dae608116209aa5414d1e2e1b01ba
   }
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
       appBar: AppBar(
         title: Text('Profile'),
         backgroundColor: Colors.teal,
@@ -51,31 +51,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Profile Photo
                 CircleAvatar(
                   radius: 40,
-                  backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                  backgroundImage: AssetImage('assets/profile_placeholder.png'),
+                  onBackgroundImageError: (_, __) => Icon(Icons.person, size: 40),
                 ),
                 SizedBox(width: 16),
-                // Username
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'John Doe', // Replace with the actual username
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'John Doe',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'johndoe@example.com', // Optional email or subtitle
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
+                      Text(
+                        'johndoe@example.com',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -84,23 +85,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Main content of the selected page
             Expanded(
               child: _pages[_selectedIndex],
-            ),
-
-            // Logout Button
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login'); // Navigate back to login
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                'Log Out',
-                style: TextStyle(fontSize: 18),
-              ),
             ),
           ],
         ),
@@ -116,18 +100,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
             label: 'Community',
+            tooltip: 'View Meal Community',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
             label: 'Combos',
+            tooltip: 'Explore Food Combos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
             label: 'Streak',
+            tooltip: 'Track Personal Streak',
           ),
         ],
       ),
     );
   }
 }
-
