@@ -1,64 +1,133 @@
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
-
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+<<<<<<< HEAD
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    // Example values for the profile
-    _nameController.text = "John Doe";
-    _emailController.text = "johndoe@example.com";
+      child: Text(
+        'Meal Community',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
+    ),
+    Center(
+      child: Text(
+        'Food Combos',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
+    ),
+    Center(
+      child: Text(
+        'Personal Streak',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+>>>>>>> 6acf33373a9dae608116209aa5414d1e2e1b01ba
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: Text('Profile'),
         backgroundColor: Colors.teal,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage("assets/default_profile.jpg"),
+            // Profile Section (Photo and Username)
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Profile Photo
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                ),
+                SizedBox(width: 16),
+                // Username
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'John Doe', // Replace with the actual username
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'johndoe@example.com', // Optional email or subtitle
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            const Text("Name", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            TextField(
-              controller: _nameController,
-              decoration: const InputDecoration(hintText: "Enter your name"),
+            SizedBox(height: 32),
+
+            // Main content of the selected page
+            Expanded(
+              child: _pages[_selectedIndex],
             ),
-            const SizedBox(height: 20),
-            const Text("Email", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(hintText: "Enter your email"),
-            ),
-            const SizedBox(height: 20),
+
+            // Logout Button
             ElevatedButton(
               onPressed: () {
-                // Save the profile info, if needed
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Profile updated successfully")));
+                Navigator.pushReplacementNamed(context, '/login'); // Navigate back to login
               },
-              child: const Text("Save Changes"),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              child: Text(
+                'Log Out',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ],
         ),
       ),
+
+      // Bottom Navigation Bar
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: Colors.teal,
+        unselectedItemColor: Colors.grey,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Community',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fastfood),
+            label: 'Combos',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.check_circle),
+            label: 'Streak',
+          ),
+        ],
+      ),
     );
   }
 }
+
