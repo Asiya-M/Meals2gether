@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'screens/HomeScreen.dart';
-import 'screens/LoginScreen.dart';
+import 'package:tink_her/screens/HomeScreen.dart';
+import 'package:tink_her/screens/LoginScreen.dart';
+import 'package:tink_her/screens/SignupScreen.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',  // Initial route
       routes: {
         '/': (context) => HomeScreen(),
-        '/second': (context) => LoginScreen(),
+        '/login': (context) => LoginScreen(),
+        '/signup': (context) => SignupScreen(),
       },
     );
   }
