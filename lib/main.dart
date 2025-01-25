@@ -5,6 +5,7 @@ import 'package:tink_her/screens/SignupScreen.dart';
 import 'package:tink_her/screens/ProfileScreen.dart';
 import 'package:tink_her/screens/FoodCommunityScreen.dart';
 import 'package:tink_her/screens/FoodComboScreen.dart';
+import 'package:tink_her/screens/PersonalGoalStreakScreen.dart'; // Import the Personal Streak Screen
 
 void main() {
   runApp(MyApp());
@@ -23,8 +24,9 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/signup': (context) => SignupScreen(),
         '/profile': (context) => ProfileScreen(),
-        '/foodCommunity': (context) => FoodCommunityScreen(), 
+        '/foodCommunity': (context) => FoodCommunityScreen(),
         '/foodCombo': (context) => FoodComboScreen(),
+        '/personalStreak': (context) => PersonalGoalStreakScreen(), // Added Personal Streak page route
       },
     );
   }

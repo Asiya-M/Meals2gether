@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tink_her/screens/FoodCommunityScreen.dart';
-import 'package:tink_her/screens/FoodComboScreen.dart';  // Import the Food Combo screen
+import 'package:tink_her/screens/FoodComboScreen.dart';
+import 'package:tink_her/screens/PersonalGoalStreakScreen.dart'; // Import the goal streak screen
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -13,13 +14,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // List of pages for each tab
   final List<Widget> _pages = [
     FoodCommunityScreen(),  // Food Community Screen
-    FoodComboScreen(),  // Food Combo Screen (added this)
-    Center(
-      child: Text(
-        'Personal Streak',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
+    FoodComboScreen(),      // Food Combo Screen
+    PersonalGoalStreakScreen(), // Personal Goal Streak Screen
   ];
 
   void _onItemTapped(int index) {
