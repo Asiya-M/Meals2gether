@@ -10,11 +10,12 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
+  double _sliderValue = 50.0; // Default slider value
 
   // List of pages for each tab
   final List<Widget> _pages = [
-    FoodCommunityScreen(),  // Food Community Screen
-    FoodComboScreen(),      // Food Combo Screen
+    FoodCommunityScreen(), // Food Community Screen
+    FoodComboScreen(), // Food Combo Screen
     PersonalGoalStreakScreen(), // Personal Goal Streak Screen
   ];
 
@@ -22,6 +23,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // Function to show slider in a bottom sheet
+  void _showSliderBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Adjust Brightness',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              Slider(
+                value: _sliderValue,
+                min: 0,
+                max: 100,
+                divisions: 10,
+                label: _sliderValue.round().toString(),
+                onChanged: (value) {
+                  setState(() {
+                    _sliderValue = value;
+                  });
+                },
+              ),
+              Text(
+                'Value: ${_sliderValue.toStringAsFixed(1)}%',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -40,9 +82,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Profile Photo
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                GestureDetector(
+                  onTap: () => _showSliderBottomSheet(context),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                  ),
                 ),
                 SizedBox(width: 16),
                 // Username
@@ -90,7 +135,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
-            label: 'Combos',  // Food Combo section
+            label: 'Combos', // Food Combo section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
