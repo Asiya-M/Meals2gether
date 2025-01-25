@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'screens/HomeScreen.dart'; // Import the HomeScreen
-import 'screens/LoginScreen.dart'; // Import the LoginScreen
-import 'screens/SignupScreen.dart'; // Import the SignupScreen
+import 'package:tink_her/screens/HomeScreen.dart';
+import 'package:tink_her/screens/LoginScreen.dart';
+import 'package:tink_her/screens/SignupScreen.dart'; 
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Ensures Flutter binding is initialized
-  await Firebase.initializeApp(); // Initializes Firebase
-  runApp(const MainApp());
+void main() {
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @overridess
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Meals2Gether',
+      title: 'Basic App',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/',  // Initial route
       routes: {
         '/': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
@@ -30,3 +27,5 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+
+
