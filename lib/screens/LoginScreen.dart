@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tink_her/screens/ProfileScreen.dart';
-// ignore: unused_import
-import 'package:tink_her/screens/HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -22,13 +20,11 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      // Sign in the user using Firebase Authentication
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
       
-      // Navigate to ProfileScreen if login is successful
       if (userCredential.user != null) {
         Navigator.pushReplacement(
           context,
@@ -55,19 +51,17 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // App Name
             Text(
-              'Meals2Gether', // Replace with your app's name
+              'Meals2Gether',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: Colors.teal,
               ),
             ),
-            SizedBox(height: 20), // Space between the app name and the box
-
-            // Square Box
+            SizedBox(height: 20),
             Container(
               width: 350,
               height: 300,
@@ -87,19 +81,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Username Field
                   TextField(
-                    controller: usernameController,
+                    controller: _emailController,
                     decoration: InputDecoration(
-                      labelText: 'Username',
+                      labelText: 'Email',
                       border: OutlineInputBorder(),
                     ),
                   ),
                   SizedBox(height: 16),
-
-                  // Password Field
                   TextField(
-                    controller: passwordController,
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
@@ -107,32 +98,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   SizedBox(height: 24),
-
-                  // Login Button
                   ElevatedButton(
-                    onPressed: () {
-                      // Navigate to Profile Page
-                      Navigator.pushReplacementNamed(context, '/profile');
-                    },
+                    onPressed: _isLoading ? null : _login,
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(fontSize: 18),
-                    ),
+                    child: _isLoading 
+                      ? CircularProgressIndicator(color: Colors.white)
+                      : Text(
+                          'Login',
+                          style: TextStyle(fontSize: 18),
+                        ),
                   ),
                 ],
               ),
             ),
             if (_errorMessage != null) ...[
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
               Text(
                 _errorMessage!,
-                style: const TextStyle(color: Colors.red),
+                style: TextStyle(color: Colors.red),
               ),
             ]
           ],
