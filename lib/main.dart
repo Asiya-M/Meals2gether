@@ -1,13 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tink_her/screens/HomeScreen.dart';
 import 'package:tink_her/screens/LoginScreen.dart';
 import 'package:tink_her/screens/SignupScreen.dart';
-import 'package:tink_her/screens/ProfileScreen.dart'; // Import the ProfileScreen
+import 'package:tink_her/screens/ProfileScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); // Initialize Firebase
+  await Firebase.initializeApp( options: const FirebaseOptions(
+      apiKey: 'AIzaSyBaQlHDyZrZzndet2_XGZaKVEjaIcM3xw4',
+      appId: '1:75877769065:web:7db14a3ec07e6965a267f8',
+      messagingSenderId: '75877769065',
+      projectId: 'tinkher-ca968',
+      // Add other necessary configuration
+    ),
+  ); 
   runApp(const MyApp());
 }
 
@@ -18,20 +26,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Basic App',
+      title: 'Meals2Gether',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: FutureBuilder<bool>(
-        future: isLoggedIn(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            return snapshot.data == true ? ProfileScreen() : HomeScreen();
-          }
-        },
-      ),
+      home: AuthWrapper(),
       routes: {
         '/home': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
@@ -40,9 +39,21 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
 
-  Future<bool> isLoggedIn() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false;
+class AuthWrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          return snapshot.data != null ? ProfileScreen() : HomeScreen();
+        }
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
+      },
+    );
   }
 }
