@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tink_her/screens/FoodCommunityScreen.dart';
+import 'package:tink_her/screens/FoodComboScreen.dart';
+import 'package:tink_her/screens/PersonalGoalStreakScreen.dart'; // Import the goal streak screen
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -7,33 +10,60 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
+  double _sliderValue = 50.0; // Default slider value
 
   // List of pages for each tab
   final List<Widget> _pages = [
-    Center(
-      child: Text(
-        'Meal Community',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Food Combos',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Personal Streak',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
+    FoodCommunityScreen(), // Food Community Screen
+    FoodComboScreen(), // Food Combo Screen
+    PersonalGoalStreakScreen(), // Personal Goal Streak Screen
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // Function to show slider in a bottom sheet
+  void _showSliderBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Adjust Brightness',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              Slider(
+                value: _sliderValue,
+                min: 0,
+                max: 100,
+                divisions: 10,
+                label: _sliderValue.round().toString(),
+                onChanged: (value) {
+                  setState(() {
+                    _sliderValue = value;
+                  });
+                },
+              ),
+              Text(
+                'Value: ${_sliderValue.toStringAsFixed(1)}%',
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -52,9 +82,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Profile Photo
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                GestureDetector(
+                  onTap: () => _showSliderBottomSheet(context),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                  ),
                 ),
                 SizedBox(width: 16),
                 // Username
@@ -85,23 +118,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: _pages[_selectedIndex],
             ),
-
-            // Logout Button
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login'); // Navigate back to login
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                'Log Out',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
           ],
         ),
       ),
@@ -115,11 +131,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Community',
+            label: 'Community', // Food Community section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
-            label: 'Combos',
+            label: 'Combos', // Food Combo section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
@@ -130,4 +146,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

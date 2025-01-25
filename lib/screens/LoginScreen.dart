@@ -11,47 +11,80 @@ class LoginScreen extends StatelessWidget {
         title: Text('Login'),
         backgroundColor: Colors.teal,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Username Field
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(),
+            // App Name
+            Text(
+              'Meals2Gether', // Replace with your app's name
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 20), // Space between the app name and the box
 
-            // Password Field
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
+            // Square Box
+            Container(
+              width: 350,
+              height: 300,
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(height: 32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Username Field
+                  TextField(
+                    controller: usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 16),
 
-            // Login Button
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to Profile Page
-                Navigator.pushReplacementNamed(context, '/profile');
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                'Login',
-                style: TextStyle(fontSize: 18),
+                  // Password Field
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 24),
+
+                  // Login Button
+                  ElevatedButton(
+                    onPressed: () {
+                      // Navigate to Profile Page
+                      Navigator.pushReplacementNamed(context, '/profile');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
