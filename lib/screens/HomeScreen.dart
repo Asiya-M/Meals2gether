@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-// ignore: use_key_in_widget_constructors
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +13,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // App Name
-              Text(
+              const Text(
                 'Meals2Gether',
                 style: TextStyle(
                   fontSize: 32,
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.teal,
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Login Button
               ElevatedButton(
@@ -28,17 +29,17 @@ class HomeScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/login'); // Navigate to Login Screen
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Login',
                   style: TextStyle(fontSize: 18),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Signup Button
               ElevatedButton(
@@ -46,12 +47,12 @@ class HomeScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/signup'); // Navigate to Signup Screen
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'Sign Up',
                   style: TextStyle(fontSize: 18),
                 ),
@@ -63,3 +64,44 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Meals2Gether',
+//       theme: ThemeData(primarySwatch: Colors.teal),
+//       initialRoute: '/',
+//       routes: {
+//         '/': (context) => HomeScreen(),
+//         '/login': (context) => LoginScreen(), // Placeholder for login screen
+//         '/signup': (context) => SignupScreen(), // Placeholder for signup screen
+//       },
+//     );
+//   }
+// }
+
+// class LoginScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Login')),
+//       body: Center(child: Text('Login Screen Placeholder')),
+//     );
+//   }
+// }
+
+// class SignupScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Sign Up')),
+//       body: Center(child: Text('Sign Up Screen Placeholder')),
+//     );
+//   }
+// }

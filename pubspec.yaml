@@ -4,13 +4,13 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.5.4
-
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^3.10.1
+  shared_preferences: ^2.1.2  # Use the latest compatible version
 
 dev_dependencies:
   flutter_test:
