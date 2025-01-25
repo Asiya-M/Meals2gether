@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tink_her/screens/FoodCommunityScreen.dart';
+import 'package:tink_her/screens/FoodComboScreen.dart';  // Import the Food Combo screen
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -10,18 +12,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // List of pages for each tab
   final List<Widget> _pages = [
-    Center(
-      child: Text(
-        'Meal Community',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Food Combos',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      ),
-    ),
+    FoodCommunityScreen(),  // Food Community Screen
+    FoodComboScreen(),  // Food Combo Screen (added this)
     Center(
       child: Text(
         'Personal Streak',
@@ -85,23 +77,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: _pages[_selectedIndex],
             ),
-
-            // Logout Button
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login'); // Navigate back to login
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                'Log Out',
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
           ],
         ),
       ),
@@ -115,11 +90,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Community',
+            label: 'Community', // Food Community section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
-            label: 'Combos',
+            label: 'Combos',  // Food Combo section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
@@ -130,4 +105,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

@@ -4,64 +4,80 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // App Name
-              Text(
-                'Meals2Gether',
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
-                ),
+      body: Stack(
+        children: [
+          // Background Image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/background.jpg'), // Path to your background image
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 40),
-
-              // Login Button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login'); // Navigate to Login Screen
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // Signup Button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/signup'); // Navigate to Signup Screen
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: Text(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          // Overlay Content
+          SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // App Name
+                  Text(
+                    'Meals2Gether',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.tealAccent[700],
+                    ),
+                  ),
+                  SizedBox(height: 40),
+
+                  // Login Button
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login'); // Navigate to Login Screen
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Colors.teal,
+                    ),
+                    child: Text(
+                      'Login',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Signup Button
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signup'); // Navigate to Signup Screen
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      backgroundColor: Colors.teal,
+                    ),
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
 
 // void main() {
 //   runApp(MyApp());

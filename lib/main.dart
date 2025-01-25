@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tink_her/screens/HomeScreen.dart';
-import 'package:tink_her/screens/LoginScreen.dart'; 
+import 'package:tink_her/screens/LoginScreen.dart';
 import 'package:tink_her/screens/SignupScreen.dart';
-import 'package:tink_her/screens/ProfileScreen.dart';  // Import the ProfileScreen
+import 'package:tink_her/screens/ProfileScreen.dart';
+import 'package:tink_her/screens/FoodCommunityScreen.dart';
+import 'package:tink_her/screens/FoodComboScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/signup': (context) => SignupScreen(),
-        '/profile': (context) => ProfileScreen(),  // Route to ProfileScreen
+        '/profile': (context) => ProfileScreen(),
+        '/foodCommunity': (context) => FoodCommunityScreen(), 
+        '/foodCombo': (context) => FoodComboScreen(),
       },
     );
   }
