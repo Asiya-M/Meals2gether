@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui'; // Required for blur effect
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
@@ -7,81 +9,120 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        backgroundColor: Colors.teal,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            // App Name
-            Text(
-              'Meals2Gether', // Replace with your app's name
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal,
+            // Background image
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/background.jpg'), // Path to your image asset
+                  fit: BoxFit.cover, // Makes the image cover the entire screen
+                ),
               ),
             ),
-            SizedBox(height: 20), // Space between the app name and the box
-
-            // Square Box
-            Container(
-              width: 350,
-              height: 300,
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
-                  ),
-                ],
+            // Blur effect
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Blur intensity
+              child: Container(
+                color: Colors.black.withOpacity(0), // Transparent overlay
               ),
+            ),
+            // Foreground content
+            Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Username Field
-                  TextField(
-                    controller: usernameController,
-                    decoration: InputDecoration(
-                      labelText: 'Username',
-                      border: OutlineInputBorder(),
+                  // App Name
+                  Text(
+                    'Meals2Gether',
+                    style: GoogleFonts.pacifico(
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromRGBO(250, 250, 244, 1),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(
+                      height: 40), // Space between the app name and the form
 
-                  // Password Field
-                  TextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
+                  // Login Form Box
+                  Container(
+                    width: 350,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 216, 102, 136)
+                          .withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
+                        ),
+                      ],
                     ),
-                  ),
-                  SizedBox(height: 24),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Username Field
+                        TextField(
+                          controller: usernameController,
+                          decoration: InputDecoration(
+                            labelText: 'Username',
+                            labelStyle: TextStyle(
+                              color: Colors.black, // Darker font color
+                              fontWeight: FontWeight.bold, // Make it bold
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                          style: TextStyle(
+                            color: Colors.black, // Darker input text color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
 
-                  // Login Button
-                  ElevatedButton(
-                    onPressed: () {
-                      // Navigate to Profile Page
-                      Navigator.pushReplacementNamed(context, '/profile');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(fontSize: 18),
+                        // Password Field
+                        TextField(
+                          controller: passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Colors.black, // Darker font color
+                              fontWeight: FontWeight.bold, // Make it bold
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                          style: TextStyle(
+                            color: Colors.black, // Darker input text color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+
+                        // Login Button
+                        ElevatedButton(
+                          onPressed: () {
+                            // Navigate to Profile Page
+                            Navigator.pushReplacementNamed(context, '/profile');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: Text(
+                            'Login',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

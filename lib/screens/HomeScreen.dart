@@ -22,7 +22,7 @@ class HomeScreen extends StatelessWidget {
             ),
             // Blur effect
             BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10), // Blur intensity
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Blur intensity
               child: Container(
                 color: Colors.black.withOpacity(0), // Transparent overlay
               ),
@@ -36,9 +36,9 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'Meals2Gether',
                     style: GoogleFonts.pacifico(
-                      fontSize: 40,
+                      fontSize: 55,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 205, 198, 14),
+                      color: const Color.fromRGBO(250, 250, 244, 1),
                     ),
                   ),
                   SizedBox(height: 40),
@@ -50,7 +50,8 @@ class HomeScreen extends StatelessWidget {
                           context, '/login'); // Navigate to Login Screen
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -69,7 +70,8 @@ class HomeScreen extends StatelessWidget {
                           context, '/signup'); // Navigate to Signup Screen
                     },
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
