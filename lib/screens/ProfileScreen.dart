@@ -11,11 +11,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
 
-  // Pages for the bottom navigation bar
+  // List of pages for each tab
   final List<Widget> _pages = [
-    FoodCommunityScreen(),
-    FoodComboScreen(),
-    PersonalGoalStreakScreen(),
+    FoodCommunityScreen(), // Food Community Screen
+    FoodComboScreen(), // Food Combo Screen
+    PersonalGoalStreakScreen(), // Personal Goal Streak Screen
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            // Drawer Header with Profile Photo and User Information
+            // Drawer Header with Profile Photo and Username
             DrawerHeader(
               decoration: BoxDecoration(color: Colors.teal),
               child: Column(
@@ -43,11 +43,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Replace with your image
+                    backgroundImage:
+                        AssetImage('assets/profile_placeholder.png'), // Add your image path here
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'John Doe', // Replace with dynamic username
+                    'John Doe', // Replace with the actual username
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -55,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   Text(
-                    'johndoe@example.com', // Replace with dynamic email
+                    'johndoe@example.com', // Optional email or subtitle
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.white70,
@@ -65,83 +66,95 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
 
-            // Drawer Options
+            // History Section
             ListTile(
               leading: Icon(Icons.history),
               title: Text('Activity History'),
               subtitle: Text('View your app activity'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Add logic to navigate or display activity history
+                // Navigate to history or perform some action
+                Navigator.pop(context);
               },
             ),
+
             Divider(),
+
+            // Additional Options (if needed)
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Navigate to settings or perform relevant action
+                // Navigate to settings or perform some action
+                Navigator.pop(context);
               },
             ),
             ListTile(
               leading: Icon(Icons.logout),
               title: Text('Logout'),
               onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Add logout logic here
+                // Handle logout action
+                Navigator.pop(context);
               },
             ),
           ],
         ),
       ),
-      body: Column(
-        children: [
-          // Profile Section
-          Padding(
+      body: Builder(
+        builder: (context) => SingleChildScrollView(
+          child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Replace with your image
-                  ),
-                ),
-                SizedBox(width: 16),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // Profile Section (Photo and Username)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      'John Doe', // Replace with dynamic username
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    // Profile Photo
+                    GestureDetector(
+                      onTap: () {
+                        // Open the Drawer
+                        Scaffold.of(context).openDrawer();
+                      },
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage(
+                            'assets/profile_placeholder.png'), // Add your image path here
                       ),
                     ),
-                    Text(
-                      'johndoe@example.com', // Replace with dynamic email
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
-                      ),
+                    SizedBox(width: 16),
+                    // Username
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'John Doe', // Replace with the actual username
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'johndoe@example.com', // Optional email or subtitle
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
+                ),
+                SizedBox(height: 32),
+
+                // Main content of the selected page
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  child: _pages[_selectedIndex],
                 ),
               ],
             ),
           ),
-          SizedBox(height: 32),
-
-          // Main content of the selected page
-          Expanded(
-            child: _pages[_selectedIndex],
-          ),
-        ],
+        ),
       ),
 
       // Bottom Navigation Bar
@@ -153,11 +166,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Community',
+            label: 'Community', // Food Community section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
-            label: 'Combos',
+            label: 'Combos', // Food Combo section
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
@@ -168,5 +181,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+
+      
+
+
 
 
