@@ -15,13 +15,29 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   String? _errorMessage;
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   Future<void> _login() async {
+    // Check if fields are empty
+    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
+      setState(() {
+        _errorMessage = 'Please fill in both email and password.';
+      });
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
     });
 
     try {
+      // Firebase Authentication
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
@@ -33,9 +49,19 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(builder: (context) => ProfileScreen()),
         );
       }
+    } on FirebaseAuthException catch (e) {
+      // Specific Firebase Authentication errors
+      if (e.code == 'user-not-found') {
+        _errorMessage = 'No user found with this email.';
+      } else if (e.code == 'wrong-password') {
+        _errorMessage = 'Incorrect password.';
+      } else {
+        _errorMessage = 'Error: ${e.message}';
+      }
     } catch (e) {
+      // Generic error handling
       setState(() {
-        _errorMessage = 'Failed to sign in: ${e.toString()}';
+        _errorMessage = 'An unexpected error occurred.';
       });
     } finally {
       setState(() {
@@ -55,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/background.jpg'), // Path to your image asset
+                  image: AssetImage('assets/background.jpg'), // Path to your image asset
                   fit: BoxFit.cover, // Makes the image cover the entire screen
                 ),
               ),
@@ -167,22 +192,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             backgroundColor: Colors.teal, // Button color
                           ),
-<<<<<<< HEAD
-                          child: Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white, // Button text color
-                            ),
-                          ),
-=======
                           child: _isLoading
                               ? CircularProgressIndicator(color: Colors.white)
                               : Text(
                                   'Login',
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white, // Button text color
+                                  ),
                                 ),
->>>>>>> 31c6d22ceaf141b0e7a553f38e55abd5a106fa09
                         ),
                       ],
                     ),
@@ -203,7 +221,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> 31c6d22ceaf141b0e7a553f38e55abd5a106fa09
