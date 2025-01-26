@@ -91,8 +91,8 @@ For Hardware:
 
 ### Project Demo
 # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+[[Add your demo video link here]](https://drive.google.com/drive/folders/1E2sBpjFXEb-8owB4SLgKCDP3YC5JDHNC?usp=sharing )
+The flow of the project
 
 # Additional Demos
 [Add any extra demo materials/links]
