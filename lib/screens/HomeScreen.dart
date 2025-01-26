@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui'; // Required for blur effect
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

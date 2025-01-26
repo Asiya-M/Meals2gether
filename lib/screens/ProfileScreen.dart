@@ -90,25 +90,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 SizedBox(width: 16),
-                // Username
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'John Doe', // Replace with the actual username
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'John Doe',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'johndoe@example.com', // Optional email or subtitle
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey[600],
+                      Text(
+                        'johndoe@example.com',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey[600],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -140,6 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
             label: 'Streak',
+            tooltip: 'Track Personal Streak',
           ),
         ],
       ),
