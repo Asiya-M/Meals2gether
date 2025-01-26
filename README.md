@@ -29,7 +29,7 @@ Create an app where users can share meal photos, recipes, and food combos, engag
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- Dartch
+- Dart
 - Flutter
 - google_fonts,firebase_core
 - Git,VS Code
