@@ -60,8 +60,8 @@ First page of app
 signin.jpg
 Sign in page of app
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+Food.jpg
+Unique combinations page
 
 # Diagrams
 ![Workflow](Add your workflow/architecture diagram here)
