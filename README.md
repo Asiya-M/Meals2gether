@@ -54,8 +54,8 @@ flutter run
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+Home.jpg
+First page of app
 
 ![Screenshot2](Add screenshot 2 here with proper name)
 *Add caption explaining what this shows*
