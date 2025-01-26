@@ -42,6 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign Up')),
+      backgroundColor: const Color.fromARGB(255, 187, 226, 245),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +129,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     ElevatedButton(
                       onPressed: _signUp,
                       style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -143,7 +145,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       label: Text('Sign Up with Google'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red, // Google button color
-                        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 12),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
@@ -159,4 +162,3 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
-
