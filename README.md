@@ -50,7 +50,7 @@ flutter run
 For Software:
 
 # Screenshots (Add at least 3)
-Home.jpg
+https://github.com/Asiya-M/Meals2gether/blob/main/Home.jpg
 First page of app
 
 signin.jpg
