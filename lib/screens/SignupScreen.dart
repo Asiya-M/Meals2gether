@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -14,12 +15,37 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _usernameController = TextEditingController();
 
   // Function to handle signup logic
-  void _signUp() {
-    if (_formKey.currentState!.validate()) {
+  void _signUp() async {
+  if (_formKey.currentState!.validate()) {
+    try {
+      // Firebase Authentication sign up
+      final credential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
       // Navigate to Profile Screen after successful sign-up
       Navigator.pushReplacementNamed(context, '/profile');
+    } catch (e) {
+      // Handle errors
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Error'),
+          content: Text(e.toString()),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('OK'),
+            ),
+          ],
+        ),
+      );
     }
   }
+}
+
 
   // Password validation logic
   String? _validatePassword(String? value) {
