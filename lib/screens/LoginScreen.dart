@@ -1,10 +1,48 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui'; // Required for blur effect
+import 'package:tink_her/screens/ProfileScreen.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      if (userCredential.user != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        );
+      }
+    } catch (e) {
+      setState(() {
+        _errorMessage = 'Failed to sign in: ${e.toString()}';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +82,7 @@ class LoginScreen extends StatelessWidget {
                       color: const Color.fromRGBO(250, 250, 244, 1),
                     ),
                   ),
-                  SizedBox(
-                      height: 40), // Space between the app name and the form
+                  SizedBox(height: 40), // Space between the app name and the form
 
                   // Login Form Box
                   Container(
@@ -66,11 +103,11 @@ class LoginScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // Username Field
+                        // Email Field
                         TextField(
-                          controller: usernameController,
+                          controller: _emailController,
                           decoration: InputDecoration(
-                            labelText: 'Username',
+                            labelText: 'Email',
                             labelStyle: TextStyle(
                               color: Colors.black, // Black font color
                               fontWeight: FontWeight.bold, // Make it bold
@@ -94,7 +131,7 @@ class LoginScreen extends StatelessWidget {
 
                         // Password Field
                         TextField(
-                          controller: passwordController,
+                          controller: _passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
                             labelText: 'Password',
@@ -121,10 +158,7 @@ class LoginScreen extends StatelessWidget {
 
                         // Login Button
                         ElevatedButton(
-                          onPressed: () {
-                            // Navigate to Profile Page
-                            Navigator.pushReplacementNamed(context, '/profile');
-                          },
+                          onPressed: _isLoading ? null : _login,
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 50, vertical: 15),
@@ -133,6 +167,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             backgroundColor: Colors.teal, // Button color
                           ),
+<<<<<<< HEAD
                           child: Text(
                             'Login',
                             style: TextStyle(
@@ -140,10 +175,25 @@ class LoginScreen extends StatelessWidget {
                               color: Colors.white, // Button text color
                             ),
                           ),
+=======
+                          child: _isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+>>>>>>> 31c6d22ceaf141b0e7a553f38e55abd5a106fa09
                         ),
                       ],
                     ),
                   ),
+                  if (_errorMessage != null) ...[
+                    SizedBox(height: 10),
+                    Text(
+                      _errorMessage!,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
                 ],
               ),
             ),
@@ -153,4 +203,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 31c6d22ceaf141b0e7a553f38e55abd5a106fa09
