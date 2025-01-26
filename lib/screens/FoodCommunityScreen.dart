@@ -7,6 +7,8 @@ class Post {
   final String username;
   final String profileImageUrl;
   final String postImageUrl;
+  List<String> comments; // Make this mutable
+  int likes; // New property for likes
 
   Post({
     required this.title,
@@ -14,18 +16,25 @@ class Post {
     required this.username,
     required this.profileImageUrl,
     required this.postImageUrl,
-  });
+    List<String>? comments, // Allow null and provide a default mutable list
+    this.likes = 0, // Default likes count is 0
+  }) : comments = comments ?? [];
 }
 
-class FoodCommunityScreen extends StatelessWidget {
+class FoodCommunityScreen extends StatefulWidget {
+  @override
+  _FoodCommunityScreenState createState() => _FoodCommunityScreenState();
+}
+
+class _FoodCommunityScreenState extends State<FoodCommunityScreen> {
   // Sample post data
   final List<Post> posts = [
     Post(
       title: 'Spaghetti Bolognese',
       description: 'A classic Italian dish. Love the flavor!',
       username: 'Jane Doe',
-      profileImageUrl: 'assets/profile_placeholder.png', // Replace with actual image path
-      postImageUrl: 'assets/spaghetti.png', // Replace with actual post image path
+      profileImageUrl: 'assets/profile_placeholder.png',
+      postImageUrl: 'assets/spagetti.png',
     ),
     Post(
       title: 'Sushi Rolls',
@@ -34,8 +43,19 @@ class FoodCommunityScreen extends StatelessWidget {
       profileImageUrl: 'assets/profile_placeholder.png',
       postImageUrl: 'assets/sushi.png',
     ),
-    // Add more posts here
   ];
+
+  void _addComment(Post post, String comment) {
+    setState(() {
+      post.comments.add(comment);
+    });
+  }
+
+  void _likePost(Post post) {
+    setState(() {
+      post.likes++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,20 +123,45 @@ class FoodCommunityScreen extends StatelessWidget {
                           Image.asset(post.postImageUrl), // Display post image
                           SizedBox(height: 8.0),
 
+                          // Comments section
+                          if (post.comments.isNotEmpty) ...[
+                            Text(
+                              'Comments:',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 4.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: post.comments.map((comment) => Text('- $comment')).toList(),
+                            ),
+                          ],
+                          SizedBox(height: 8.0),
+
                           // Interaction buttons (like, comment)
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                icon: Icon(Icons.thumb_up),
-                                onPressed: () {
-                                  // Add like functionality here
-                                },
+                              Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.thumb_up),
+                                    onPressed: () {
+                                      _likePost(post);
+                                    },
+                                  ),
+                                  Text(
+                                    '${post.likes} likes',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
                               ),
                               IconButton(
                                 icon: Icon(Icons.comment),
                                 onPressed: () {
-                                  // Navigate to comment section (optional)
+                                  _showCommentDialog(post);
                                 },
                               ),
                             ],
@@ -134,7 +179,6 @@ class FoodCommunityScreen extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to post creation screen
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => CreatePostScreen()),
@@ -142,7 +186,7 @@ class FoodCommunityScreen extends StatelessWidget {
                 },
                 child: Text('Post New Meal'),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal, // Updated to use backgroundColor
+                  backgroundColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
@@ -152,6 +196,39 @@ class FoodCommunityScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showCommentDialog(Post post) {
+    final TextEditingController commentController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Add a Comment'),
+        content: TextField(
+          controller: commentController,
+          decoration: InputDecoration(hintText: 'Write your comment here'),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              final comment = commentController.text;
+              if (comment.isNotEmpty) {
+                _addComment(post, comment);
+              }
+              Navigator.pop(context);
+            },
+            child: Text('Post'),
+          ),
+        ],
       ),
     );
   }
@@ -172,7 +249,6 @@ class CreatePostScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Post Title
             TextField(
               controller: _titleController,
               decoration: InputDecoration(
@@ -181,8 +257,6 @@ class CreatePostScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-
-            // Post Description
             TextField(
               controller: _descriptionController,
               maxLines: 5,
@@ -192,19 +266,15 @@ class CreatePostScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 24),
-
-            // Post Button
             ElevatedButton(
               onPressed: () {
-                // Here, you can send the post data to Firebase or any backend.
-                // For now, just print the entered data to console.
                 print('Post Title: ${_titleController.text}');
                 print('Post Description: ${_descriptionController.text}');
-                Navigator.pop(context); // Go back after posting
+                Navigator.pop(context);
               },
               child: Text('Post'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal, // Updated to use backgroundColor
+                backgroundColor: Colors.teal,
                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -217,4 +287,7 @@ class CreatePostScreen extends StatelessWidget {
     );
   }
 }
+
+
+
 

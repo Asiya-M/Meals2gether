@@ -23,4 +23,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/background.jpg
-    - assets/profile_placeholder.png  # Add your asset here
+    - assets/profile_placeholder.png
+    - assets/spagetti.jpg 
