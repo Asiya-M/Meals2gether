@@ -69,7 +69,7 @@ The flow of the project
 
 ## Team Contributions
 - Asiya Muhammed: Backend
-- Ananiah Molly Manu: Frontent
+- Ananiah Molly Manu: Frontend
 - Vrindha Vinod: Frontend
 
 ---
