@@ -1,34 +1,38 @@
-# [Project Name] 🎯
+# MEALS2GETHER  🎯
 
 
-## Basic Details
+## Basic Description
+ The app features a community feed where users can share meal photos, recipes,
+ and nutritional tips, creating a space for mutual support and inspiration. Other users can like and
+ comment on posts, fostering engagement.
 ### Team Name: [Name]
 
 
 ### Team Members
-- Member 1: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Member 1: Vrindha Vinod - TKM College of Engineering,Kollam
+- Member 2: Ananiah Molly Manu- TKM College of Engineering,Kollam
+- Member 3: Asiya Muhammed-TKM College of Engineering,Kollam
 
 ### Hosted Project Link
 [mention your project hosted project link here]
 
 ### Project Description
-[2-3 lines about what your project does]
+The project allows us to  create profiles using sign in,and log in using existing accounts.People with accounts can post their recipes unique food combination.
+There are 8 screens which includes a home page ,sign in page,log in page,profile page,community page,
 
 ### The Problem statement
-[What ridiculous problem are you solving?]
+Maintaining healthy eating habits and staying motivated can be difficult without community support and reminders. Users need a platform to share meal ideas and recipes
 
 ### The Solution
-[How are you solving it? Keep it fun!]
+Create an app where users can share meal photos, recipes, and food combos, engage with others through likes and comments
 
 ## Technical Details
 ### Technologies/Components Used
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+- Dartch
+- Flutter
+- google_fonts,firebase_core
+- Git,VS Code
 
 For Hardware:
 - [List main components]
@@ -36,12 +40,15 @@ For Hardware:
 - [List tools required]
 
 ### Implementation
-For Software:
+The implementation starts at main.dart.
 # Installation
-[commands]
+git clone <repository_url>
+cd <project_directory>
+flutter pub get
+flutter doctor
 
 # Run
-[commands]
+flutter run
 
 ### Project Documentation
 For Software:
