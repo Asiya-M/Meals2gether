@@ -34,10 +34,6 @@ For Software:
 - google_fonts,firebase_core
 - Git,VS Code
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
 ### Implementation
 The implementation starts at main.dart.
@@ -63,39 +59,13 @@ Sign in page of app
 Food.jpg
 Unique combinations page
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
 
-For Hardware:
-
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
-
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
-
-# Build Photos
-![Team](Add photo of your team here)
-
-
-![Components](Add photo of your components here)
-*List out all components shown*
-
-![Build](Add photos of build process here)
-*Explain the build steps*
-
-![Final](Add photo of final product here)
-*Explain the final build*
 
 ### Project Demo
 # Video
 [[Add your demo video link here]](https://drive.google.com/drive/folders/1E2sBpjFXEb-8owB4SLgKCDP3YC5JDHNC?usp=sharing )
 The flow of the project
 
-# Additional Demos
-[Add any extra demo materials/links]
 
 ## Team Contributions
 - Asiya Muhammed: Backend
