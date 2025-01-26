@@ -53,10 +53,10 @@ For Software:
 https://github.com/Asiya-M/Meals2gether/blob/main/Home.jpg
 First page of app
 
-signin.jpg
+https://github.com/Asiya-M/Meals2gether/blob/main/signin.jpg
 Sign in page of app
 
-Food.jpg
+
 Unique combinations page
 
 
