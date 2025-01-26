@@ -57,8 +57,8 @@ For Software:
 Home.jpg
 First page of app
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+signin.jpg
+Sign in page of app
 
 ![Screenshot3](Add screenshot 3 here with proper name)
 *Add caption explaining what this shows*
