@@ -5,7 +5,7 @@
  The app features a community feed where users can share meal photos, recipes,
  and nutritional tips, creating a space for mutual support and inspiration. Other users can like and
  comment on posts, fostering engagement.
-### Team Name: [Name]
+### Team Name: Gossip Girls
 
 
 ### Team Members
