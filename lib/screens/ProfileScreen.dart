@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tink_her/screens/FoodCommunityScreen.dart';
 import 'package:tink_her/screens/FoodComboScreen.dart';
-import 'package:tink_her/screens/PersonalGoalStreakScreen.dart'; // Import the goal streak screen
+import 'package:tink_her/screens/PersonalGoalStreakScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -10,60 +10,18 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   int _selectedIndex = 0;
-  double _sliderValue = 50.0; // Default slider value
 
-  // List of pages for each tab
+  // Pages for the bottom navigation bar
   final List<Widget> _pages = [
-    FoodCommunityScreen(), // Food Community Screen
-    FoodComboScreen(), // Food Combo Screen
-    PersonalGoalStreakScreen(), // Personal Goal Streak Screen
+    FoodCommunityScreen(),
+    FoodComboScreen(),
+    PersonalGoalStreakScreen(),
   ];
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  // Function to show slider in a bottom sheet
-  void _showSliderBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'Adjust Brightness',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-              Slider(
-                value: _sliderValue,
-                min: 0,
-                max: 100,
-                divisions: 10,
-                label: _sliderValue.round().toString(),
-                onChanged: (value) {
-                  setState(() {
-                    _sliderValue = value;
-                  });
-                },
-              ),
-              Text(
-                'Value: ${_sliderValue.toStringAsFixed(1)}%',
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
-        );
-      },
-    );
   }
 
   @override
@@ -73,36 +31,100 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text('Profile'),
         backgroundColor: Colors.teal,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
           children: [
-            // Profile Section (Photo and Username)
-            Row(
+            // Drawer Header with Profile Photo and User Information
+            DrawerHeader(
+              decoration: BoxDecoration(color: Colors.teal),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Replace with your image
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'John Doe', // Replace with dynamic username
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'johndoe@example.com', // Replace with dynamic email
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Drawer Options
+            ListTile(
+              leading: Icon(Icons.history),
+              title: Text('Activity History'),
+              subtitle: Text('View your app activity'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                // Add logic to navigate or display activity history
+              },
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                // Navigate to settings or perform relevant action
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                // Add logout logic here
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Column(
+        children: [
+          // Profile Section
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Profile Photo
                 GestureDetector(
-                  onTap: () => _showSliderBottomSheet(context),
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                   child: CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Add your image path here
+                    backgroundImage: AssetImage('assets/profile_placeholder.png'), // Replace with your image
                   ),
                 ),
                 SizedBox(width: 16),
-                // Username
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'John Doe', // Replace with the actual username
+                      'John Doe', // Replace with dynamic username
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      'johndoe@example.com', // Optional email or subtitle
+                      'johndoe@example.com', // Replace with dynamic email
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[600],
@@ -112,14 +134,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 32),
+          ),
+          SizedBox(height: 32),
 
-            // Main content of the selected page
-            Expanded(
-              child: _pages[_selectedIndex],
-            ),
-          ],
-        ),
+          // Main content of the selected page
+          Expanded(
+            child: _pages[_selectedIndex],
+          ),
+        ],
       ),
 
       // Bottom Navigation Bar
@@ -131,11 +153,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.group),
-            label: 'Community', // Food Community section
+            label: 'Community',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fastfood),
-            label: 'Combos', // Food Combo section
+            label: 'Combos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.check_circle),
@@ -146,3 +168,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+
+
