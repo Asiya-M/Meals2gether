@@ -98,9 +98,9 @@ The flow of the project
 [Add any extra demo materials/links]
 
 ## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+- Asiya Muhammed: Backend
+- Ananiah Molly Manu: Frontent
+- Vrindha Vinod: Frontend
 
 ---
 Made with ❤️ at TinkerHub
