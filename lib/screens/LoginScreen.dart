@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui'; // Required for blur effect
 import 'package:tink_her/screens/ProfileScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -24,7 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      
+
       if (userCredential.user != null) {
         Navigator.pushReplacement(
           context,
@@ -45,98 +47,130 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-        backgroundColor: Colors.teal,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SafeArea(
+        child: Stack(
+          fit: StackFit.expand,
           children: [
-            Text(
-              'Meals2Gether',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.teal,
+            // Background image
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                      'assets/background.jpg'), // Path to your image asset
+                  fit: BoxFit.cover, // Makes the image cover the entire screen
+                ),
               ),
             ),
-            SizedBox(height: 20),
-            Container(
-              width: 350,
-              height: 300,
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    blurRadius: 10,
-                    offset: Offset(0, 5),
-                  ),
-                ],
+            // Blur effect
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Blur intensity
+              child: Container(
+                color: Colors.black.withOpacity(0), // Transparent overlay
               ),
+            ),
+            // Foreground content
+            Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  TextField(
-                    controller: _emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
+                  // App Name
+                  Text(
+                    'Meals2Gether',
+                    style: GoogleFonts.pacifico(
+                      fontSize: 55,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromRGBO(250, 250, 244, 1),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  TextField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _login,
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    child: _isLoading 
-                      ? CircularProgressIndicator(color: Colors.white)
-                      : Text(
-                          'Login',
-                          style: TextStyle(fontSize: 18),
+                  SizedBox(height: 40), // Space between the app name and the form
+
+                  // Login Form Box
+                  Container(
+                    width: 350,
+                    padding: const EdgeInsets.all(16.0),
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 216, 102, 136)
+                          .withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 10,
+                          offset: Offset(0, 5),
                         ),
+                      ],
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        // Email Field
+                        TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.black, // Darker font color
+                              fontWeight: FontWeight.bold, // Make it bold
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                          style: TextStyle(
+                            color: Colors.black, // Darker input text color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+
+                        // Password Field
+                        TextField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Colors.black, // Darker font color
+                              fontWeight: FontWeight.bold, // Make it bold
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                          style: TextStyle(
+                            color: Colors.black, // Darker input text color
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 24),
+
+                        // Login Button
+                        ElevatedButton(
+                          onPressed: _isLoading ? null : _login,
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 50, vertical: 15),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          child: _isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                  'Login',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                        ),
+                      ],
+                    ),
                   ),
+                  if (_errorMessage != null) ...[
+                    SizedBox(height: 10),
+                    Text(
+                      _errorMessage!,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                  ],
                 ],
               ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-              
             ),
-            if (_errorMessage != null) ...[
-              SizedBox(height: 10),
-              Text(
-                _errorMessage!,
-                style: TextStyle(color: Colors.red),
-              ),
-            ]
           ],
         ),
       ),
